@@ -48,9 +48,12 @@ final class PostFactory extends ModelFactory
     {
         return [
             //'category' => CategoryFactory::new(),
+            
+            'title' => $title = self::faker()->sentence(),
+            'slug' => strtolower(
+                str_replace('', '-', $title)
+            ),
             'content' => self::faker()->text(),
-            'slug' => self::faker()->sentence(),
-            'title' => self::faker()->sentence(),
         ];
     }
 

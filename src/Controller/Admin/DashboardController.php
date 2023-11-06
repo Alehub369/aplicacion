@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Category;
 use App\Entity\Comment;
 use App\Entity\Post;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 
 
@@ -54,6 +55,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Categorias', 'fa fa-folder', Category::class);
         yield MenuItem::linkToCrud('Publicaciones', 'fa fa-cloud', Post::class);
         yield MenuItem::linkToCrud('Comentarios', 'fa fa-comments', Comment::class);
+        yield MenuItem::linkToCrud('Usuarios', 'fa fa-users', User::class);
+
 
         yield MenuItem::linkToDashboard('Sitio Web', 'fa fa-home', 'app_home');
     }

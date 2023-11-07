@@ -22,7 +22,7 @@ class PageController extends AbstractController
         ]);
     }
 
-    #[Route('/blog/{slug}', name: 'app_post')]
+ /*    #[Route('/blog/{slug}', name: 'app_post')]
     public function post(Post $post): Response
     {
         $form = $this->createForm(CommentType::class);
@@ -31,11 +31,21 @@ class PageController extends AbstractController
             'post' => $post,
             'form' => $form->createView()
         ]);
+    } */
+
+    #[Route('/blog/{slug}', name: 'app_post')]
+    public function post($slug, PostRepository $postRepository): Response
+    {
+        return $this->render('page/post.html.twig', [
+            'post' => $postRepository->findOneBySlug($slug),
+            'form' => $this->createForm(CommentType::class),
+        ]);
     }
 
     #[Route('/nuevo-comentario/{slug}', name: 'app_comment_new')]
     public function commet(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
+
         $comment = new Comment();
         $comment->setUser($this->getUser());
         $comment->setPost($post);

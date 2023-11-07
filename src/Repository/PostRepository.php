@@ -33,6 +33,20 @@ class PostRepository extends ServiceEntityRepository
         ->getResult();
     }
 
+    public function findOneBySlug($slug): ? Post
+    {
+        return $this->createQueryBuilder('post')
+            ->andWhere('post.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->addSelect(['comments', 'category', 'user'])
+            ->leftJoin('post.comments', 'comments')
+            ->leftJoin('comments.user', 'user')
+            ->leftJoin('post.category', 'category')
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+
 //    /**
 //     * @return Post[] Returns an array of Post objects
 //     */
